@@ -1,5 +1,5 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'docup'
+description: 'A github action for docup'
 inputs:
   milliseconds:  # id of input
     description: 'number of milliseconds to wait'
@@ -9,5 +9,5 @@ outputs:
   time: # output will be available to future steps
     description: 'The current time after waiting'
 runs:
-  using: 'node16'
+  using: 'node14'
   main: 'dist/index.js'
