@@ -28,10 +28,7 @@ async function run() {
 
     writeFile(output, html, {encoding: 'utf-8'});
 
-
-    core.info((new Date()).toTimeString());
-
-    core.setOutput('time', new Date().toTimeString());
+    core.setOutput('output', output);
   } catch (error: any) {
     core.setFailed(error.message);
   }

@@ -3580,8 +3580,7 @@ async function run() {
             ]
         });
         (0,promises_namespaceObject.writeFile)(__nccwpck_require__.ab + "index.html", html, { encoding: 'utf-8' });
-        core.info((new Date()).toTimeString());
-        core.setOutput('time', new Date().toTimeString());
+        core.setOutput('output', __nccwpck_require__.ab + "index.html");
     }
     catch (error) {
         core.setFailed(error.message);
