@@ -23,13 +23,24 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set Node.js 16.x
+      - name: Set Node.js 14.x
         uses: actions/setup-node@v3.5.1
         with:
-          node-version: 16.x
+          node-version: 14.x
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Cache .pnpm-store
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}
+
+      - name: install pnpm and npm
+        run: |
+          curl -L https://pnpm.js.org/pnpm.js | node - add --global pnpm@dev npm@6
+      - name: pnpm install
+        run: pnpm install
 
       - name: Rebuild the dist/ directory
         run: npm run prepare
