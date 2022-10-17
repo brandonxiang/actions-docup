@@ -7,13 +7,13 @@ import path from 'path';
 async function run() {
   try {
     const input = path.resolve('template/index.hbs');
-    core.debug('input path' + input)
+    core.info('input path' + input)
  
     io.mkdirP(path.resolve('docs'));
-    core.debug('mkdir file ' + path.resolve('docs'));
+    core.info('mkdir file ' + path.resolve('docs'));
 
     const output = path.resolve('docs', 'index.html');
-    core.debug('output path' + output);
+    core.info('output path' + output);
 
     const template = await readFile(input, 'utf8');
     const render = compile(template);
@@ -27,7 +27,8 @@ async function run() {
     });
 
     writeFile(output, html, {encoding: 'utf-8'});
-
+    core.info('html ' + html);
+    
     core.setOutput('output', output);
   } catch (error: any) {
     core.setFailed(error.message);
