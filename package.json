@@ -1,5 +1,5 @@
 {
-  "name": "docup-action",
+  "name": "actions-docup",
   "version": "1.0.0",
   "description": "A github action for docup",
   "main": "index.js",

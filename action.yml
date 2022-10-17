@@ -1,4 +1,4 @@
-name: 'docup'
+name: 'actions-docup'
 description: 'A github action for docup'
 inputs:
   milliseconds:  # id of input
