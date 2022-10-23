@@ -16,7 +16,7 @@ async function run() {
     core.info('output path' + output);
     const defaultDoc = await fs.existsSync('docs/readme.md');
     core.info('default doc' + defaultDoc);
-    const fallbackDoc = await fs.existsSync('readme.md');
+    const fallbackDoc = await fs.existsSync('README.md');
     core.info('fallback doc' + fallbackDoc);
 
     await io.mkdirP('docs');

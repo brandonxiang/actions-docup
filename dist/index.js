@@ -3575,7 +3575,7 @@ async function run() {
         core.info('output path' + output);
         const defaultDoc = await external_fs_default().existsSync('docs/readme.md');
         core.info('default doc' + defaultDoc);
-        const fallbackDoc = await external_fs_default().existsSync('readme.md');
+        const fallbackDoc = await external_fs_default().existsSync('README.md');
         core.info('fallback doc' + fallbackDoc);
         await io.mkdirP('docs');
         // if(defaultDoc.length == 0){
