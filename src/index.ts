@@ -10,13 +10,13 @@ async function run() {
 
     const input = path.resolve('template/index.hbs');
     core.info('input path' + input)
-    const outputDir = path.resolve('docs');
+    const outputDir = path.resolve(__dirname, 'docs');
     core.info('output dir' + outputDir);
-    const output = path.resolve('docs/index.html');
+    const output = path.resolve(__dirname, 'docs/index.html');
     core.info('output path' + output);
-    const defaultDoc = path.resolve('docs/readme.md');
+    const defaultDoc = path.resolve(__dirname, 'docs/readme.md');
     core.info('default doc' + defaultDoc);
-    const fallbackDoc = path.resolve('readme.md');
+    const fallbackDoc = path.resolve(__dirname, 'readme.md');
     core.info('fallback doc' + fallbackDoc);
 
     io.mkdirP(outputDir);

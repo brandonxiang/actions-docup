@@ -3557,6 +3557,7 @@ function transform(input, options={}) {
 
 // EXTERNAL MODULE: external "path"
 var external_path_ = __nccwpck_require__(622);
+var external_path_default = /*#__PURE__*/__nccwpck_require__.n(external_path_);
 ;// CONCATENATED MODULE: ./src/index.ts
 
 
@@ -3568,18 +3569,18 @@ async function run() {
     try {
         const input = __nccwpck_require__.ab + "index.hbs";
         core.info('input path' + input);
-        const outputDir = __nccwpck_require__.ab + "docs";
+        const outputDir = external_path_default().resolve(__dirname, 'docs');
         core.info('output dir' + outputDir);
-        const output = __nccwpck_require__.ab + "index.html";
+        const output = external_path_default().resolve(__dirname, 'docs/index.html');
         core.info('output path' + output);
-        const defaultDoc = __nccwpck_require__.ab + "readme.md";
+        const defaultDoc = external_path_default().resolve(__dirname, 'docs/readme.md');
         core.info('default doc' + defaultDoc);
-        const fallbackDoc = __nccwpck_require__.ab + "readme1.md";
+        const fallbackDoc = external_path_default().resolve(__dirname, 'readme.md');
         core.info('fallback doc' + fallbackDoc);
-        io.mkdirP(__nccwpck_require__.ab + "docs");
-        if (!external_fs_default().existsSync(__nccwpck_require__.ab + "readme.md")) {
+        io.mkdirP(outputDir);
+        if (!external_fs_default().existsSync(defaultDoc)) {
             core.info('Please place your readme in your \'docs\' folder');
-            if (external_fs_default().existsSync(__nccwpck_require__.ab + "readme1.md")) {
+            if (external_fs_default().existsSync(fallbackDoc)) {
                 core.info('exist fallback');
                 io.cp(fallbackDoc, defaultDoc);
             }
@@ -3597,9 +3598,9 @@ async function run() {
                 { id: 3, text: 'Exercise, ok' },
             ]
         });
-        (0,promises_namespaceObject.writeFile)(__nccwpck_require__.ab + "index.html", html, { encoding: 'utf-8' });
+        (0,promises_namespaceObject.writeFile)(output, html, { encoding: 'utf-8' });
         core.info('html ' + html);
-        core.setOutput('output', __nccwpck_require__.ab + "index.html");
+        core.setOutput('output', output);
     }
     catch (error) {
         core.setFailed(error.message);
