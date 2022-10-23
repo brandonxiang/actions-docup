@@ -1,5 +1,4 @@
 import { readFile, writeFile } from 'fs/promises';
-import fs from 'fs';
 import * as core from '@actions/core';
 import * as io from '@actions/io';
 import { compile } from 'tempura';
@@ -14,23 +13,19 @@ async function run() {
     core.info('output dir' + outputDir);
     const output = path.resolve(__dirname, 'docs/index.html');
     core.info('output path' + output);
-    const defaultDoc = path.resolve(__dirname, 'docs/readme.md');
+    const defaultDoc = await io.findInPath('docs/readme.md');
     core.info('default doc' + defaultDoc);
-    const fallbackDoc = path.resolve(__dirname, 'readme.md');
+    const fallbackDoc = await io.findInPath('readme.md');
     core.info('fallback doc' + fallbackDoc);
 
     await io.mkdirP('docs');
 
-    const res = await io.findInPath('docs/readme')
 
-    core.info('res' + res);
-
-
-    if(!fs.existsSync(defaultDoc)){
+    if(defaultDoc.length == 0){
       core.info('Please place your readme in your \'docs\' folder');
-      if(fs.existsSync(fallbackDoc)){
+      if(fallbackDoc.length !== 0){
         core.info('exist fallback');
-        io.cp(fallbackDoc, defaultDoc)
+        io.cp('readme.md', 'docs/readme.md')
       } else {
         core.info('Please place your readme in your project root');
       }

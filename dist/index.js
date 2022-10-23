@@ -3403,9 +3403,6 @@ __nccwpck_require__.r(__webpack_exports__);
 
 ;// CONCATENATED MODULE: external "fs/promises"
 const promises_namespaceObject = require("fs/promises");
-// EXTERNAL MODULE: external "fs"
-var external_fs_ = __nccwpck_require__(747);
-var external_fs_default = /*#__PURE__*/__nccwpck_require__.n(external_fs_);
 // EXTERNAL MODULE: ./node_modules/.pnpm/@actions+core@1.10.0/node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(535);
 // EXTERNAL MODULE: ./node_modules/.pnpm/@actions+io@1.1.2/node_modules/@actions/io/lib/io.js
@@ -3564,7 +3561,6 @@ var external_path_default = /*#__PURE__*/__nccwpck_require__.n(external_path_);
 
 
 
-
 async function run() {
     try {
         const input = __nccwpck_require__.ab + "index.hbs";
@@ -3573,18 +3569,16 @@ async function run() {
         core.info('output dir' + outputDir);
         const output = external_path_default().resolve(__dirname, 'docs/index.html');
         core.info('output path' + output);
-        const defaultDoc = external_path_default().resolve(__dirname, 'docs/readme.md');
+        const defaultDoc = await io.findInPath('docs/readme.md');
         core.info('default doc' + defaultDoc);
-        const fallbackDoc = external_path_default().resolve(__dirname, 'readme.md');
+        const fallbackDoc = await io.findInPath('readme.md');
         core.info('fallback doc' + fallbackDoc);
         await io.mkdirP('docs');
-        const res = await io.findInPath('docs/readme');
-        core.info('res' + res);
-        if (!external_fs_default().existsSync(defaultDoc)) {
+        if (defaultDoc.length == 0) {
             core.info('Please place your readme in your \'docs\' folder');
-            if (external_fs_default().existsSync(fallbackDoc)) {
+            if (fallbackDoc.length !== 0) {
                 core.info('exist fallback');
-                io.cp(fallbackDoc, defaultDoc);
+                io.cp('readme.md', 'docs/readme.md');
             }
             else {
                 core.info('Please place your readme in your project root');
