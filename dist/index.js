@@ -3577,7 +3577,9 @@ async function run() {
         core.info('default doc' + defaultDoc);
         const fallbackDoc = external_path_default().resolve(__dirname, 'readme.md');
         core.info('fallback doc' + fallbackDoc);
-        io.mkdirP(outputDir);
+        await io.mkdirP('docs');
+        const res = await io.findInPath('docs/readme');
+        core.info('res' + res);
         if (!external_fs_default().existsSync(defaultDoc)) {
             core.info('Please place your readme in your \'docs\' folder');
             if (external_fs_default().existsSync(fallbackDoc)) {
