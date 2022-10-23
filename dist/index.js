@@ -3564,11 +3564,11 @@ var external_path_default = /*#__PURE__*/__nccwpck_require__.n(external_path_);
 async function run() {
     try {
         const input = __nccwpck_require__.ab + "index.hbs";
-        core.debug('input path' + input);
+        core.info('input path' + input);
         io.mkdirP(__nccwpck_require__.ab + "docs");
-        core.debug('mkdir file ' + external_path_default().resolve('docs'));
+        core.info('mkdir file ' + external_path_default().resolve('docs'));
         const output = __nccwpck_require__.ab + "index.html";
-        core.debug('output path' + output);
+        core.info('output path' + output);
         const template = await (0,promises_namespaceObject.readFile)(__nccwpck_require__.ab + "index.hbs", 'utf8');
         const render = compile(template);
         const html = await render({
@@ -3580,6 +3580,7 @@ async function run() {
             ]
         });
         (0,promises_namespaceObject.writeFile)(__nccwpck_require__.ab + "index.html", html, { encoding: 'utf-8' });
+        core.info('html ' + html);
         core.setOutput('output', __nccwpck_require__.ab + "index.html");
     }
     catch (error) {
