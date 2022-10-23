@@ -13,9 +13,9 @@ async function run() {
     core.info('output dir' + outputDir);
     const output = path.resolve(__dirname, 'docs/index.html');
     core.info('output path' + output);
-    const defaultDoc = await io.findInPath('docs/readme.md');
+    const defaultDoc = await io.which('docs/readme.md', true);
     core.info('default doc' + defaultDoc);
-    const fallbackDoc = await io.findInPath('readme.md');
+    const fallbackDoc = await io.which('readme.md', true);
     core.info('fallback doc' + fallbackDoc);
 
     await io.mkdirP('docs');
