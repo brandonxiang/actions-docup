@@ -3403,6 +3403,9 @@ __nccwpck_require__.r(__webpack_exports__);
 
 ;// CONCATENATED MODULE: external "fs/promises"
 const promises_namespaceObject = require("fs/promises");
+// EXTERNAL MODULE: external "fs"
+var external_fs_ = __nccwpck_require__(747);
+var external_fs_default = /*#__PURE__*/__nccwpck_require__.n(external_fs_);
 // EXTERNAL MODULE: ./node_modules/.pnpm/@actions+core@1.10.0/node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(535);
 // EXTERNAL MODULE: ./node_modules/.pnpm/@actions+io@1.1.2/node_modules/@actions/io/lib/io.js
@@ -3554,8 +3557,8 @@ function transform(input, options={}) {
 
 // EXTERNAL MODULE: external "path"
 var external_path_ = __nccwpck_require__(622);
-var external_path_default = /*#__PURE__*/__nccwpck_require__.n(external_path_);
 ;// CONCATENATED MODULE: ./src/index.ts
+
 
 
 
@@ -3565,10 +3568,25 @@ async function run() {
     try {
         const input = __nccwpck_require__.ab + "index.hbs";
         core.info('input path' + input);
-        io.mkdirP(__nccwpck_require__.ab + "docs");
-        core.info('mkdir file ' + external_path_default().resolve('docs'));
+        const outputDir = __nccwpck_require__.ab + "docs";
+        core.info('output dir' + outputDir);
         const output = __nccwpck_require__.ab + "index.html";
-        core.info('output path' + external_path_default().resolve('docs/index.html'));
+        core.info('output path' + output);
+        const defaultDoc = __nccwpck_require__.ab + "readme.md";
+        core.info('default doc' + defaultDoc);
+        const fallbackDoc = __nccwpck_require__.ab + "readme1.md";
+        core.info('fallback doc' + fallbackDoc);
+        io.mkdirP(__nccwpck_require__.ab + "docs");
+        if (!external_fs_default().existsSync(__nccwpck_require__.ab + "readme.md")) {
+            core.info('Please place your readme in your \'docs\' folder');
+            if (external_fs_default().existsSync(__nccwpck_require__.ab + "readme1.md")) {
+                core.info('exist fallback');
+                io.cp(fallbackDoc, defaultDoc);
+            }
+            else {
+                core.info('Please place your readme in your project root');
+            }
+        }
         const template = await (0,promises_namespaceObject.readFile)(__nccwpck_require__.ab + "index.hbs", 'utf8');
         const render = compile(template);
         const html = await render({

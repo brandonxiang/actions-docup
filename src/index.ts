@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'fs/promises';
+import fs from 'fs';
 import * as core from '@actions/core';
 import * as io from '@actions/io';
 import { compile } from 'tempura';
@@ -6,14 +7,31 @@ import path from 'path';
 
 async function run() {
   try {
+
     const input = path.resolve('template/index.hbs');
     core.info('input path' + input)
- 
-    io.mkdirP(path.resolve('docs'));
-    core.info('mkdir file ' + path.resolve('docs'));
-
+    const outputDir = path.resolve('docs');
+    core.info('output dir' + outputDir);
     const output = path.resolve('docs/index.html');
-    core.info('output path' + path.resolve('docs/index.html'));
+    core.info('output path' + output);
+    const defaultDoc = path.resolve('docs/readme.md');
+    core.info('default doc' + defaultDoc);
+    const fallbackDoc = path.resolve('readme.md');
+    core.info('fallback doc' + fallbackDoc);
+
+    io.mkdirP(outputDir);
+
+  
+
+    if(!fs.existsSync(defaultDoc)){
+      core.info('Please place your readme in your \'docs\' folder');
+      if(fs.existsSync(fallbackDoc)){
+        core.info('exist fallback');
+        io.cp(fallbackDoc, defaultDoc)
+      } else {
+        core.info('Please place your readme in your project root');
+      }
+    }
 
     const template = await readFile(input, 'utf8');
     const render = compile(template);
