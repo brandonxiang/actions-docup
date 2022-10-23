@@ -3568,7 +3568,7 @@ async function run() {
         io.mkdirP(__nccwpck_require__.ab + "docs");
         core.info('mkdir file ' + external_path_default().resolve('docs'));
         const output = __nccwpck_require__.ab + "index.html";
-        core.info('output path' + output);
+        core.info('output path' + external_path_default().resolve('docs/index.html'));
         const template = await (0,promises_namespaceObject.readFile)(__nccwpck_require__.ab + "index.hbs", 'utf8');
         const render = compile(template);
         const html = await render({

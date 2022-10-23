@@ -12,8 +12,8 @@ async function run() {
     io.mkdirP(path.resolve('docs'));
     core.info('mkdir file ' + path.resolve('docs'));
 
-    const output = path.resolve('docs', 'index.html');
-    core.info('output path' + output);
+    const output = path.resolve('docs/index.html');
+    core.info('output path' + path.resolve('docs/index.html'));
 
     const template = await readFile(input, 'utf8');
     const render = compile(template);
