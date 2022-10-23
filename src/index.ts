@@ -10,27 +10,30 @@ async function run() {
 
     const input = path.resolve('template/index.hbs');
     core.info('input path' + input)
-    const outputDir = path.resolve(__dirname, 'docs');
-    core.info('output dir' + outputDir);
-    const output = path.resolve(__dirname, 'docs/index.html');
+    const output = 'docs/index.html';
     core.info('output path' + output);
-    const defaultDoc = await fs.existsSync('docs/readme.md');
-    core.info('default doc' + defaultDoc);
-    const fallbackDoc = await fs.existsSync('README.md');
-    core.info('fallback doc' + fallbackDoc);
+    const defaultDoc1 = fs.existsSync('docs/readme.md');
+    const defaultDoc2 = fs.existsSync('docs/README.md');
+    core.info('default doc' + defaultDoc1 + defaultDoc2);
+    const fallbackDoc1 = fs.existsSync('readme.md');
+    const fallbackDoc2 = fs.existsSync('README.md');
+    core.info('fallback doc' + fallbackDoc1 + fallbackDoc2);
 
     await io.mkdirP('docs');
 
 
-    // if(defaultDoc.length == 0){
-    //   core.info('Please place your readme in your \'docs\' folder');
-    //   if(fallbackDoc.length !== 0){
-    //     core.info('exist fallback');
-    //     io.cp('readme.md', 'docs/readme.md')
-    //   } else {
-    //     core.info('Please place your readme in your project root');
-    //   }
-    // }
+    if(!defaultDoc1 && !defaultDoc2){
+      core.info('Please place your readme in your \'docs\' folder');
+      if(fallbackDoc1){
+        core.info('exist fallback1');
+        io.cp('readme.md', 'docs/readme.md')
+      } else if (fallbackDoc2) {
+        core.info('exist fallback2');
+        io.cp('README.md', 'docs/readme.md')
+      } else {
+        core.info('Please place your readme in your project root');
+      }
+    }
 
     const template = await readFile(input, 'utf8');
     const render = compile(template);
