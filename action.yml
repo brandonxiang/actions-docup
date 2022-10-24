@@ -1,7 +1,14 @@
 name: 'actions-docup'
 description: 'A github action for docup'
+inputs:
+  title:
+    description: 'The title that is shown in the navbar. It defaults to document.title'
+  navLinks:
+    description: 'Links in the navbar.'
+  beforeSidebar:
+    description: 'HTML string to display before sidebar'
 outputs:
-  output: # output will be available to future steps
+  output:
     description: 'The current time after waiting'
 runs:
   using: 'node16'

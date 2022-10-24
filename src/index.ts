@@ -35,15 +35,14 @@ async function run() {
       }
     }
 
+   
+
     const template = await readFile(input, 'utf8');
     const render = compile(template);
     const html = await render({
-      title: 'Reminders',
-      items: [
-        { id: 1, text: 'Feed the doggo' },
-        { id: 2, text: 'Buy groceries' },
-        { id: 3, text: 'Exercise, ok' },
-      ]
+      title: core.getInput('title'),
+      navLinks: core.getMultilineInput('navLinks'),
+      beforeSidebar: core.getInput('beforeSidebar')
     });
 
     writeFile(output, html, {encoding: 'utf-8'});

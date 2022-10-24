@@ -3594,12 +3594,9 @@ async function run() {
         const template = await (0,promises_namespaceObject.readFile)(__nccwpck_require__.ab + "index.hbs", 'utf8');
         const render = compile(template);
         const html = await render({
-            title: 'Reminders',
-            items: [
-                { id: 1, text: 'Feed the doggo' },
-                { id: 2, text: 'Buy groceries' },
-                { id: 3, text: 'Exercise, ok' },
-            ]
+            title: core.getInput('title'),
+            navLinks: core.getMultilineInput('navLinks'),
+            beforeSidebar: core.getInput('beforeSidebar')
         });
         (0,promises_namespaceObject.writeFile)(output, html, { encoding: 'utf-8' });
         core.info('html ' + html);
