@@ -24,7 +24,7 @@
     "tempura": "0.4.0"
   },
   "devDependencies": {
-    "@types/node": "18.11.0",
+    "@types/node": "18.14.5",
     "@vercel/ncc": "^0.31.1",
     "eslint": "^8.0.0",
     "typescript": "4.8.4",
